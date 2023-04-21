@@ -5,11 +5,13 @@ import com.todo.model.Task;
 import com.todo.services.TaskService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.server.cors.CrossOrigin;
 import jakarta.inject.Inject;
 
 import java.util.List;
 
 @Controller("/api/{api.version}/task")
+@CrossOrigin({"http://localhost:9000"})
 public class TaskController implements ITaskController {
 
     @Inject
