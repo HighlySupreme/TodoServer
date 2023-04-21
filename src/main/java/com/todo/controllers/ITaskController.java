@@ -3,9 +3,7 @@ package com.todo.controllers;
 import com.todo.model.Task;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Produces;
+import io.micronaut.http.annotation.*;
 
 import java.util.List;
 
@@ -15,6 +13,11 @@ public interface ITaskController {
     @Get("/")
     @Produces(MediaType.APPLICATION_JSON)
     HttpResponse<List<Task>> getTasks();
+
+    @Post
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    HttpResponse<Task> createTask(Task task);
 
 
 }
