@@ -6,7 +6,7 @@ import com.todo.services.TaskService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.server.cors.CrossOrigin;
-import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import java.util.List;
 
@@ -14,8 +14,11 @@ import java.util.List;
 @CrossOrigin({"http://localhost:9000"})
 public class TaskController implements ITaskController {
 
-    @Inject
-    private TaskService taskService;
+    private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @Override
     public HttpResponse<List<Task>> getTasks() {
@@ -27,6 +30,20 @@ public class TaskController implements ITaskController {
                 return HttpResponse.ok(taskList);
             }
             return HttpResponse.noContent();
+
+        } catch (Exception e) {
+            return HttpResponse.badRequest();
+        }
+    }
+
+    @Override
+    public HttpResponse<Task> createTask(Task task) {
+        try {
+            if (task == null) return HttpResponse.badRequest();
+
+            taskService.createTask(task);
+
+            return HttpResponse.ok();
 
         } catch (Exception e) {
             return HttpResponse.badRequest();
