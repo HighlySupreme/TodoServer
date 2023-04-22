@@ -19,7 +19,11 @@ public class TaskService {
     public TaskService() {}
 
     public List<Task> getTasks() {
-        return null;
+        try {
+            return db.withExtension(TaskDao.class, dao -> dao.getTasks());
+        } catch (Exception e) {
+            throw new RuntimeException("ERR_GET_TASKS");
+        }
     }
 
     public void createTask(Task task) {
