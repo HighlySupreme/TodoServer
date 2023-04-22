@@ -1,6 +1,7 @@
 package com.todo.services;
 
 
+import com.todo.mappers.TaskMapper;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
@@ -25,13 +26,16 @@ public class DatabaseService {
             dataSource.setUrl("jdbc:mariadb://localhost:3306/todo");
             dataSource.setUsername("root");
             dataSource.setPassword("root");
-            dataSource.setMaxActive(10);
+            dataSource.setMaxIdle(10);
+            dataSource.setMaxActive(100);
             jdbi = Jdbi.create(dataSource);
             jdbi.installPlugin(new SqlObjectPlugin());
+            jdbi.registerRowMapper(new TaskMapper());
         } catch (Exception e) {
             //Log the error
         }
     }
+
 
     public DataSource getDataSource() {
         return dataSource;
