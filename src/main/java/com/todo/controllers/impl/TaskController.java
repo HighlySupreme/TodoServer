@@ -4,9 +4,9 @@ import com.todo.controllers.ITaskController;
 import com.todo.model.Task;
 import com.todo.services.TaskService;
 import io.micronaut.http.HttpResponse;
+import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.server.cors.CrossOrigin;
-import jakarta.inject.Singleton;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class TaskController implements ITaskController {
     }
 
     @Override
-    public HttpResponse<Task> createTask(Task task) {
+    public HttpResponse<Task> createTask(@Body Task task) {
         try {
             if (task == null) return HttpResponse.badRequest();
 

@@ -1,18 +1,30 @@
 package com.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Task {
 
     private int id;
 
     private String title;
 
-    private Date completionDate;
+    private Date createdDate;
 
     private String person;
 
     private String description;
+
+    public Task() {}
+    public Task(int id, String title, Date createdDate, String person, String description) {
+        this.id = id;
+        this.title = title;
+        this.createdDate = createdDate;
+        this.person = person;
+        this.description = description;
+    }
 
 
     public int getId() {
@@ -31,14 +43,6 @@ public class Task {
         this.title = title;
     }
 
-    public Date getCompletionDate() {
-        return completionDate;
-    }
-
-    public void setCompletionDate(Date completionDate) {
-        this.completionDate = completionDate;
-    }
-
     public String getPerson() {
         return person;
     }
@@ -53,5 +57,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 }
