@@ -34,5 +34,28 @@ public class TaskService {
             throw new RuntimeException("ERR_CREATE_TASK");
         }
     }
+    public void updateTask(Task task) {
+        try {
+            db.useExtension(TaskDao.class, dao -> dao.updateTask(task));
+        } catch (Exception e) {
+            //Log the error to the server with logger or anything similar
+            throw new RuntimeException("ERR_CREATE_TASK");
+        }
+    }
+
+    public Task getTask(int id) {
+        try {
+            return db.withExtension(TaskDao.class, dao -> dao.getTask(id));
+        } catch (Exception e) {
+            throw new RuntimeException("ERR_GET_TASKS");
+        }
+    }
+    public void deleteTasks(List<Task> taskList) {
+        try {
+            db.useExtension(TaskDao.class, dao -> dao.deleteTask(taskList));
+        } catch (Exception e) {
+            throw new RuntimeException("ERR_GET_TASKS");
+        }
+    }
 
 }

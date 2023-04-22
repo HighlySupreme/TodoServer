@@ -2,6 +2,7 @@ package com.todo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -65,5 +66,10 @@ public class Task {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getCreatedDateStr() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+        return formatter.format(this.createdDate);
     }
 }

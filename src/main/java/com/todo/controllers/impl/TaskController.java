@@ -49,4 +49,45 @@ public class TaskController implements ITaskController {
             return HttpResponse.badRequest();
         }
     }
+
+    @Override
+    public HttpResponse<Task> updateTask(@Body Task task) {
+        try {
+            if (task == null) return HttpResponse.badRequest();
+
+            taskService.updateTask(task);
+
+            return HttpResponse.ok();
+
+        } catch (Exception e) {
+            return HttpResponse.badRequest();
+        }
+    }
+
+    @Override
+    public HttpResponse<Task> getTask(int id) {
+        try {
+            Task task = taskService.getTask(id);
+
+            if (task != null) {
+                return HttpResponse.ok(task);
+            }
+            return HttpResponse.noContent();
+
+        } catch (Exception e) {
+            return HttpResponse.badRequest();
+        }
+    }
+
+    @Override
+    public HttpResponse<Task> deleteTasks(List<Task> taskList) {
+        try {
+            if (taskList != null && !taskList.isEmpty()) {
+                taskService.deleteTasks(taskList);
+            }
+            return HttpResponse.noContent();
+        } catch (Exception e) {
+            return HttpResponse.badRequest();
+        }
+    }
 }
